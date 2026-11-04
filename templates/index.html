@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CreditScore AI | Credit Score Prediction</title>
+
+    <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+
+            z-index: 1000;
+
+            padding: 18px 6%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(10, 15, 35, 0.82);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: white;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #2563eb
+            );
+
+            box-shadow: 0 8px 25px rgba(37,99,235,0.35);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero-section {
+            position: relative;
+
+            min-height: 720px;
+            height: 92vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            color: white;
+        }
+
+
+        /* Background image */
+
+        .hero-bg {
+            position: absolute;
+
+            inset: -30px;
+
+            background-image: url("https://tse4.mm.bing.net/th/id/OIP.B1Dy4oOHL2JRD-h4zJoTegHaEK?r=0&w=1920&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3");
+
+            background-size: cover;
+            background-position: center;
+
+            animation: heroZoom 14s ease-in-out infinite alternate;
+        }
+
+
+        /* Gradient overlay */
+
+        .hero-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(5, 8, 25, 0.96),
+                    rgba(35, 15, 90, 0.82),
+                    rgba(15, 70, 150, 0.60),
+                    rgba(5, 8, 25, 0.94)
+                );
+
+            background-size: 300% 300%;
+
+            animation: gradientMove 10s ease infinite;
+        }
+
+
+        /* Glow */
+
+        .hero-overlay::before {
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,0.35),
+                    transparent 70%
+                );
+
+            top: 5%;
+            right: 5%;
+
+            filter: blur(20px);
+
+            animation: floatingGlow 7s ease-in-out infinite alternate;
+        }
+
+
+        .hero-overlay::after {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(37,99,235,0.25),
+                    transparent 70%
+                );
+
+            bottom: -100px;
+            left: -100px;
+
+            filter: blur(25px);
+
+            animation: floatingGlow2 8s ease-in-out infinite alternate;
+        }
+
+
+        /* Hero content */
+
+        .hero-content {
+            position: relative;
+
+            z-index: 5;
+
+            max-width: 950px;
+
+            padding: 40px;
+
+            text-align: center;
+
+            animation: heroEnter 1.2s ease forwards;
+        }
+
+
+        .hero-badge {
+            display: inline-block;
+
+            padding: 10px 20px;
+
+            margin-bottom: 25px;
+
+            border-radius: 50px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            color: rgba(255,255,255,0.9);
+        }
+
+
+        .hero-content h1 {
+            font-size: clamp(45px, 7vw, 82px);
+
+            line-height: 1.03;
+
+            font-weight: 850;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .hero-content h1 span {
+            background:
+                linear-gradient(
+                    90deg,
+                    #a78bfa,
+                    #38bdf8,
+                    #818cf8,
+                    #c084fc
+                );
+
+            background-size: 300% auto;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            animation: textGradient 5s linear infinite;
+        }
+
+
+        .hero-content p {
+            max-width: 700px;
+
+            margin: 0 auto 30px;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            color: rgba(255,255,255,0.78);
+        }
+
+
+        .hero-btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 15px 32px;
+
+            border-radius: 50px;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #2563eb
+                );
+
+            box-shadow:
+                0 15px 40px rgba(37,99,235,0.35);
+
+            transition: 0.3s;
+        }
+
+
+        .hero-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+
+            box-shadow:
+                0 20px 50px rgba(124,58,237,0.5);
+        }
+
+
+        /* Scroll indicator */
+
+        .scroll-indicator {
+            position: absolute;
+
+            bottom: 30px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            z-index: 5;
+
+            color: rgba(255,255,255,0.65);
+
+            font-size: 12px;
+
+            letter-spacing: 2px;
+
+            text-align: center;
+
+            animation: scrollBounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            margin-top: 8px;
+
+            font-size: 22px;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .main-container {
+            width: 92%;
+            max-width: 1200px;
+
+            margin: 80px auto;
+        }
+
+
+        /* Section heading */
+
+        .section-heading {
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+        .section-heading .small-title {
+            color: #6366f1;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+
+            color: #111827;
+
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #6b7280;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           PREDICTION CARD
+        ========================================= */
+
+        .prediction-card {
+            background: rgba(255,255,255,0.95);
+
+            border-radius: 28px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 25px 70px rgba(15,23,42,0.10);
+
+            border: 1px solid rgba(15,23,42,0.06);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .prediction-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7c3aed,
+                    #2563eb,
+                    #06b6d4
+                );
+        }
+
+
+        /* =========================================
+           FORM SECTIONS
+        ========================================= */
+
+        .form-section {
+            margin-bottom: 42px;
+        }
+
+
+        .form-section-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .section-number {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #2563eb
+                );
+        }
+
+
+        .form-section-title h3 {
+            font-size: 19px;
+
+            color: #111827;
+        }
+
+
+        /* Grid */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        /* Form field */
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .form-group label {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 11px;
+
+            border: 1px solid #d1d5db;
+
+            background: #f9fafb;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.25s;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color: #6366f1;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99,102,241,0.10);
+        }
+
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+
+        /* =========================================
+           PREDICT BUTTON
+        ========================================= */
+
+        .predict-wrapper {
+            text-align: center;
+
+            margin-top: 10px;
+        }
+
+
+        .predict-btn {
+            border: none;
+
+            padding: 16px 50px;
+
+            border-radius: 50px;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #2563eb
+                );
+
+            box-shadow:
+                0 12px 35px rgba(79,70,229,0.3);
+
+            transition: all 0.3s ease;
+        }
+
+
+        .predict-btn:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 18px 45px rgba(79,70,229,0.4);
+        }
+
+
+        .predict-btn:active {
+            transform: scale(0.97);
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading {
+            display: none;
+
+            margin-top: 20px;
+
+            color: #6366f1;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .spinner {
+            display: inline-block;
+
+            width: 18px;
+            height: 18px;
+
+            margin-right: 8px;
+
+            vertical-align: middle;
+
+            border: 3px solid #ddd6fe;
+
+            border-top-color: #6366f1;
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+        }
+
+
+        /* =========================================
+           RESULT
+        ========================================= */
+
+        #result-container {
+            display: none;
+
+            margin-top: 35px;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            animation: resultEnter 0.5s ease;
+        }
+
+
+        #result-container h3 {
+            font-size: 14px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+        }
+
+
+        #result {
+            font-size: 42px;
+
+            font-weight: 900;
+        }
+
+
+        .result-good {
+            background: #ecfdf5;
+
+            border: 1px solid #a7f3d0;
+
+            color: #047857;
+        }
+
+
+        .result-standard {
+            background: #fffbeb;
+
+            border: 1px solid #fde68a;
+
+            color: #b45309;
+        }
+
+
+        .result-poor {
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #b91c1c;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            margin-top: 100px;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            color: #6b7280;
+
+            background: #0f172a;
+        }
+
+
+        footer strong {
+            color: white;
+        }
+
+
+        /* =========================================
+           SCROLL REVEAL
+        ========================================= */
+
+        .reveal {
+            opacity: 0;
+
+            transform: translateY(50px);
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+
+        .reveal.active {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           ANIMATIONS
+        ========================================= */
+
+        @keyframes heroZoom {
+
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+
+        @keyframes gradientMove {
+
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
+        @keyframes textGradient {
+
+            to {
+                background-position: 300% center;
+            }
+        }
+
+
+        @keyframes floatingGlow {
+
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(-80px,60px);
+            }
+        }
+
+
+        @keyframes floatingGlow2 {
+
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(100px,-50px);
+            }
+        }
+
+
+        @keyframes heroEnter {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes scrollBounce {
+
+            0%,100% {
+                transform:
+                    translate(-50%,0);
+            }
+
+            50% {
+                transform:
+                    translate(-50%,10px);
+            }
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @keyframes resultEnter {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .form-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 55px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero-section {
+                min-height: 650px;
+            }
+
+            .hero-content {
+                padding: 25px;
+            }
+
+            .hero-content h1 {
+                font-size: 43px;
+                letter-spacing: -1px;
+            }
+
+            .hero-content p {
+                font-size: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prediction-card {
+                padding: 25px 20px;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================= -->
+
+    <nav class="navbar">
+
+        <a href="/" class="logo">
+
+            <div class="logo-icon">
+                💳
+            </div>
+
+            CreditScore AI
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#prediction-form">
+                Prediction
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================
+         HERO SECTION
+    ========================================= -->
+
+    <section class="hero-section">
+
+        <div class="hero-bg"></div>
+
+        <div class="hero-overlay"></div>
+
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                AI-POWERED CREDIT ANALYSIS
+            </div>
+
+
+            <h1>
+
+                Smart Credit Score
+
+                <br>
+
+                <span>
+                    Prediction System
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Analyze financial behaviour, credit history,
+                payment patterns and financial information
+                using machine learning.
+
+            </p>
+
+
+            <a
+                href="#prediction-form"
+                class="hero-btn"
+            >
+
+                Start Prediction ↓
+
+            </a>
+
+        </div>
+
+
+        <div class="scroll-indicator">
+
+            SCROLL TO EXPLORE
+
+            <div class="scroll-arrow">
+                ↓
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================= -->
+
+    <main class="main-container">
+
+
+        <!-- Heading -->
+
+        <div class="section-heading reveal">
+
+            <div class="small-title">
+                MACHINE LEARNING
+            </div>
+
+            <h2>
+                Credit Score Prediction
+            </h2>
+
+            <p>
+                Enter the customer's financial and credit
+                information below to predict their credit score.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             PREDICTION FORM
+        ========================================= -->
+
+        <div
+            class="prediction-card reveal"
+            id="prediction-form"
+        >
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <div class="section-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Personal Information
+                    </h3>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Age"
+                            placeholder="Enter age"
+                            value="30"
+                        >
+
+                    </div>
+
+
+                    
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 INCOME & FINANCIAL
+            ====================================== -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <div class="section-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Income & Financial Profile
+                    </h3>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Annual Income
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Annual_Income"
+                            placeholder="Annual income"
+                            value="50000"
+                        >
+
+                    </div>
+
+
+                    
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Outstanding Debt
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Outstanding_Debt"
+                            placeholder="Outstanding debt"
+                            value="1000"
+                        >
+
+                    </div>
+
+
+                    
+
+
+                    
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 CREDIT PROFILE
+            ====================================== -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <div class="section-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Credit Profile
+                    </h3>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Bank Accounts
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Num_Bank_Accounts"
+                            value="3"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Credit Cards
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Num_Credit_Card"
+                            value="3"
+                        >
+
+                    </div>
+
+
+                    
+
+
+                    
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Credit Mix
+                        </label>
+
+                        <select id="Credit_Mix">
+
+                            <option value="Good">
+                                Good
+                            </option>
+
+                            <option value="Standard" selected>
+                                Standard
+                            </option>
+
+                            <option value="Bad">
+                                Bad
+                            </option>
+
+                            <option value="Unknown">
+                                Unknown
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 PAYMENT BEHAVIOUR
+            ====================================== -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <div class="section-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Payment Behaviour
+                    </h3>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Delay from Due Date
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Delay_from_due_date"
+                            value="10"
+                        >
+
+                    </div>
+
+
+                    
+
+
+                    
+
+
+                    
+
+
+                    
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 CREDIT HISTORY
+            ====================================== -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <div class="section-number">
+                        05
+                    </div>
+
+                    <h3>
+                        Credit History
+                    </h3>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Credit Utilization Ratio
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            id="Credit_Utilization_Ratio"
+                            value="30"
+                        >
+
+                    </div>
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 PREDICT BUTTON
+            ====================================== -->
+
+            <div class="predict-wrapper">
+
+                <button
+                    type="button"
+                    class="predict-btn"
+                    onclick="predictCreditScore()"
+                >
+
+                    Predict Credit Score
+
+                </button>
+
+
+                <div
+                    class="loading"
+                    id="loading"
+                >
+
+                    <span class="spinner"></span>
+
+                    Analyzing financial profile...
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 RESULT
+            ====================================== -->
+
+            <div id="result-container">
+
+                <h3>
+                    Predicted Credit Score
+                </h3>
+
+                <div id="result">
+                    —
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
+    <footer>
+
+        <p>
+
+            <strong>
+                CreditScore AI
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Machine Learning Credit Score Analysis
+
+        </p>
+
+        <p style="margin-top:8px; font-size:12px;">
+
+            Built using Python, Flask & Machine Learning
+
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script>
+
+
+        /* =========================================
+           PREDICTION
+        ========================================= */
+
+        async function predictCreditScore() {
+
+
+            const loading =
+                document.getElementById("loading");
+
+            const resultContainer =
+                document.getElementById("result-container");
+
+            const result =
+                document.getElementById("result");
+
+
+            /* Show loading */
+
+            loading.style.display = "block";
+
+            resultContainer.style.display = "none";
+
+
+            /* Collect data */
+
+            const data = {
+
+
+                Age:
+                    Number(document.getElementById("Age").value),
+
+
+                Annual_Income:
+                    Number(document.getElementById("Annual_Income").value),
+
+
+                Num_Bank_Accounts:
+                    Number(
+                        document.getElementById(
+                            "Num_Bank_Accounts"
+                        ).value
+                    ),
+
+                Num_Credit_Card:
+                    Number(
+                        document.getElementById(
+                            "Num_Credit_Card"
+                        ).value
+                    ),
+
+
+                Delay_from_due_date:
+                    Number(
+                        document.getElementById(
+                            "Delay_from_due_date"
+                        ).value
+                    ),
+
+
+                Credit_Mix:
+                    document.getElementById(
+                        "Credit_Mix"
+                    ).value,
+
+                Outstanding_Debt:
+                    Number(
+                        document.getElementById(
+                            "Outstanding_Debt"
+                        ).value
+                    ),
+
+                Credit_Utilization_Ratio:
+                    Number(
+                        document.getElementById(
+                            "Credit_Utilization_Ratio"
+                        ).value
+                    ),
+
+
+            };
+
+
+            try {
+
+
+                /* Send request to Flask */
+
+                const response =
+                    await fetch("/predict", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+
+                    });
+
+
+                const prediction =
+                    await response.json();
+
+
+                /* Hide loading */
+
+                loading.style.display = "none";
+
+
+                /* Show result */
+
+                resultContainer.style.display =
+                    "block";
+
+
+                result.textContent =
+                    prediction.credit_score;
+
+
+                /* Reset result classes */
+
+                resultContainer.className = "";
+
+
+                /* Apply result colour */
+
+                if (
+                    prediction.credit_score
+                        .toLowerCase()
+                        === "good"
+                ) {
+
+                    resultContainer.classList.add(
+                        "result-good"
+                    );
+
+                }
+
+                else if (
+                    prediction.credit_score
+                        .toLowerCase()
+                        === "standard"
+                ) {
+
+                    resultContainer.classList.add(
+                        "result-standard"
+                    );
+
+                }
+
+                else if (
+                    prediction.credit_score
+                        .toLowerCase()
+                        === "poor"
+                ) {
+
+                    resultContainer.classList.add(
+                        "result-poor"
+                    );
+
+                }
+
+
+                /* Scroll to result */
+
+                resultContainer.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+            }
+
+            catch (error) {
+
+
+                loading.style.display = "none";
+
+                resultContainer.style.display =
+                    "block";
+
+                resultContainer.className =
+                    "result-poor";
+
+                result.textContent =
+                    "Prediction Failed";
+
+                console.error(error);
+
+            }
+
+        }
+
+
+        /* =========================================
+           SCROLL REVEAL
+        ========================================= */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        function revealOnScroll() {
+
+
+            revealElements.forEach(
+                element => {
+
+                    const windowHeight =
+                        window.innerHeight;
+
+                    const elementTop =
+                        element.getBoundingClientRect()
+                               .top;
+
+
+                    if (
+                        elementTop <
+                        windowHeight - 100
+                    ) {
+
+                        element.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            revealOnScroll
+        );
+
+
+        /* Run once on page load */
+
+        revealOnScroll();
+
+
+    </script>
+
+
+</body>
+</html>
