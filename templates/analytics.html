@@ -1,15 +1,14 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Analytics | CreditScore AI</title>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -22,18 +21,15 @@
             color: #111827;
         }
 
-        /* ================= NAVBAR ================= */
+        /* NAVBAR */
 
         .navbar {
-            height: 72px;
+            min-height: 72px;
             background: #0f172a;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 0 6%;
-
             color: white;
         }
 
@@ -46,19 +42,11 @@
         .brand-icon {
             width: 38px;
             height: 38px;
-
             border-radius: 10px;
-
-            background: linear-gradient(
-                135deg,
-                #2563eb,
-                #7c3aed
-            );
-
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-weight: bold;
             font-size: 18px;
         }
@@ -81,13 +69,9 @@
         .nav-links a {
             color: #cbd5e1;
             text-decoration: none;
-
             padding: 10px 18px;
-
             border-radius: 8px;
-
             font-size: 14px;
-
             transition: 0.2s;
         }
 
@@ -101,68 +85,51 @@
             color: white;
         }
 
-
-        /* ================= HERO ================= */
+        /* HERO */
 
         .hero {
             max-width: 1200px;
             margin: auto;
-
             padding: 55px 25px 35px;
         }
 
         .hero-badge {
             display: inline-block;
-
             padding: 7px 13px;
-
             background: #dbeafe;
             color: #2563eb;
-
             border-radius: 20px;
-
             font-size: 12px;
             font-weight: 600;
-
             margin-bottom: 15px;
         }
 
         .hero h2 {
             font-size: 38px;
             line-height: 1.2;
-
             margin-bottom: 12px;
-
             color: #0f172a;
         }
 
         .hero p {
             font-size: 16px;
             color: #64748b;
-
             max-width: 650px;
-
             line-height: 1.6;
         }
 
-
-        /* ================= DASHBOARD ================= */
+        /* DASHBOARD */
 
         .dashboard {
             max-width: 1200px;
             margin: auto;
-
             padding: 0 25px 50px;
         }
-
-
-        /* ================= SECTION TITLE ================= */
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-bottom: 18px;
         }
 
@@ -176,47 +143,102 @@
             color: #64748b;
         }
 
-
-        /* ================= CHART CARD ================= */
+        /* CHART CARDS */
 
         .chart-card {
             background: white;
-
             border: 1px solid #e5e7eb;
-
             border-radius: 18px;
-
             padding: 12px;
-
             margin-bottom: 25px;
-
-            box-shadow:
-                0 8px 30px rgba(15, 23, 42, 0.06);
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+            transition: 0.2s;
+            overflow-x: auto;
         }
 
         .chart-card:hover {
             transform: translateY(-3px);
-
-            box-shadow:
-                0 14px 35px rgba(15, 23, 42, 0.10);
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
         }
 
+        /* FEATURE OVERVIEW */
 
-        /* ================= FOOTER ================= */
+        .feature-section {
+            margin-top: 40px;
+        }
+
+        .feature-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 20px;
+            transition: 0.2s;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .feature-number {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h4 {
+            color: #0f172a;
+            font-size: 15px;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .feature-count {
+            display: inline-block;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* FOOTER */
 
         .footer {
             background: #0f172a;
-
             color: #94a3b8;
-
             text-align: center;
-
             padding: 25px;
-
             font-size: 13px;
         }
 
@@ -224,13 +246,19 @@
             color: #e2e8f0;
         }
 
+        /* RESPONSIVE */
 
-        /* ================= RESPONSIVE ================= */
+        @media (max-width: 900px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
         @media (max-width: 700px) {
-
             .navbar {
-                padding: 0 20px;
+                padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 12px;
             }
 
             .brand span {
@@ -253,51 +281,42 @@
                 padding: 0 15px 40px;
             }
 
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 6px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-
-    <!-- ================= NAVIGATION ================= -->
+    <!-- NAVIGATION -->
 
     <nav class="navbar">
 
         <div class="brand">
-
-            <div class="brand-icon">
-                CS
-            </div>
+            <div class="brand-icon">CS</div>
 
             <div>
                 <h1>CreditScore AI</h1>
                 <span>Credit Analysis Platform</span>
             </div>
-
         </div>
 
-
         <div class="nav-links">
-
-            <a href="/">
-                Prediction
-            </a>
-
-            <a href="/analytics" class="active">
-                Analytics
-            </a>
-
+            <a href="/">Prediction</a>
+            <a href="/analytics" class="active">Analytics</a>
         </div>
 
     </nav>
 
-
-
-    <!-- ================= HERO ================= -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -305,71 +324,142 @@
             DATA ANALYTICS
         </div>
 
-        <h2>
-            Credit Score Analytics
-        </h2>
+        <h2>Credit Score Analytics</h2>
 
         <p>
             Explore customer financial patterns and understand
             how different financial factors relate to credit score
-            categories.
+            categories using machine learning analytics.
         </p>
 
     </section>
 
-
-
-    <!-- ================= DASHBOARD ================= -->
+    <!-- DASHBOARD -->
 
     <main class="dashboard">
 
+        <!-- CHARTS -->
 
         <div class="section-header">
-
-            <h3>
-                Financial Insights
-            </h3>
-
-            <span>
-                Based on training dataset
-            </span>
-
+            <h3>Financial Insights</h3>
+            <span>Based on training dataset</span>
         </div>
 
-
-        <!-- Chart 1 -->
-
         <div class="chart-card">
-
             {{ charts.chart1 | safe }}
-
         </div>
-
-
-        <!-- Chart 2 -->
 
         <div class="chart-card">
-
             {{ charts.chart2 | safe }}
-
         </div>
 
+        <!-- MODEL FEATURES -->
+
+        <section class="feature-section">
+
+            <div class="section-header">
+                <h3>Model Features Overview</h3>
+                <span>12 input features</span>
+            </div>
+
+            <p class="feature-description">
+                The ID3 Decision Tree model uses the following
+                12 financial attributes to predict a customer's
+                credit score category.
+            </p>
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+                    <div class="feature-number">01</div>
+                    <h4>Age</h4>
+                    <p>Age of the customer in years.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">02</div>
+                    <h4>Annual_Income</h4>
+                    <p>Total yearly income of the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">03</div>
+                    <h4>Monthly_Inhand_Salary</h4>
+                    <p>Monthly take-home salary received by the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">04</div>
+                    <h4>Outstanding_Debt</h4>
+                    <p>Total unpaid debt amount of the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">05</div>
+                    <h4>Num_Bank_Accounts</h4>
+                    <p>Number of bank accounts held by the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">06</div>
+                    <h4>Num_Credit_Card</h4>
+                    <p>Number of credit cards owned by the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">07</div>
+                    <h4>Num_of_Loan</h4>
+                    <p>Total number of loans taken by the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">08</div>
+                    <h4>Interest_Rate</h4>
+                    <p>Interest rate applied to the customer's credit.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">09</div>
+                    <h4>Num_of_Delayed_Payment</h4>
+                    <p>Number of delayed payments recorded.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">10</div>
+                    <h4>Credit_Mix</h4>
+                    <p>Types and variety of credit accounts used by the customer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">11</div>
+                    <h4>Delay_from_due_date</h4>
+                    <p>Number of days payments are delayed beyond their due date.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">12</div>
+                    <h4>Credit_Utilization_Ratio</h4>
+                    <p>Percentage of available credit currently being used.</p>
+                </div>
+
+            </div>
+
+            <div class="feature-count">
+                Total Features Used: 12
+            </div>
+
+        </section>
 
     </main>
 
-
-
-    <!-- ================= FOOTER ================= -->
+    <!-- FOOTER -->
 
     <footer class="footer">
-
         <strong>CreditScore AI</strong>
         &nbsp; • &nbsp;
         Machine Learning Credit Analysis System
-
     </footer>
 
-
 </body>
-
 </html>
+```

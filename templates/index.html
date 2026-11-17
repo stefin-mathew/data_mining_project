@@ -1209,6 +1209,23 @@
                     <div class="form-group">
 
                         <label>
+                            Monthly Inhand Salary
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            id="Monthly_Inhand_Salary"
+                            placeholder="Monthly inhand salary"
+                            value="4000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
                             Outstanding Debt
                         </label>
 
@@ -1291,6 +1308,38 @@
 
 
                     
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Loans
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Num_of_Loan"
+                            placeholder="Number of loans"
+                            value="2"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Interest Rate
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            id="Interest_Rate"
+                            placeholder="Interest rate"
+                            value="5"
+                        >
+
+                    </div>
 
 
                     <div class="form-group">
@@ -1383,6 +1432,22 @@
                 </div>
 
             </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Delayed Payments
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Num_of_Delayed_Payment"
+                            placeholder="Number of delayed payments"
+                            value="2"
+                        >
+
+                    </div>
 
 
             <!-- =====================================
@@ -1554,6 +1619,9 @@
                     Number(document.getElementById("Annual_Income").value),
 
 
+                Monthly_Inhand_Salary:
+                    Number(document.getElementById("Monthly_Inhand_Salary").value),
+
                 Num_Bank_Accounts:
                     Number(
                         document.getElementById(
@@ -1568,6 +1636,15 @@
                         ).value
                     ),
 
+
+                Num_of_Loan:
+                    Number(document.getElementById("Num_of_Loan").value),
+
+                Interest_Rate:
+                    Number(document.getElementById("Interest_Rate").value),
+
+                Num_of_Delayed_Payment:
+                    Number(document.getElementById("Num_of_Delayed_Payment").value),
 
                 Delay_from_due_date:
                     Number(
